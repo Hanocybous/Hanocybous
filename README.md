@@ -1,11 +1,6 @@
 # Welcome to my Github profile!
 I'm an undergraduate student at the University of Ioannina, studying Computer Science and Engineering. I'm interested in software development, machine learning, and computer architecture. I'm currently working on a few projects, which you can find in my repositories.
 
-## Projects
-- [**Calculator**]()
-- [**Solitaire**]()
-- [**Digital Notes App**]()
-
 ## Contact
 - [**LinkedIn**](https://www.linkedin.com/in/charilaoschatz/)
 - [**Email**](mailto:harrychatz5@gmail.com)
