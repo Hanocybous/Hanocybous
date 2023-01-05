@@ -15,6 +15,7 @@ I'm an undergraduate student at the University of Ioannina, studying Computer Sc
 - Android
 - Machine Learning
 - Computer Architecture
+- Logic Design
 
 ### Tools
 - Git
