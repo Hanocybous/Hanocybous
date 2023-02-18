@@ -12,7 +12,7 @@ I'm an undergraduate student at the University of Ioannina, studying Computer Sc
 - C++
 
 ### Technologies
-- Machine Learning
+- Data Structures
 - Computer Architecture
 - Logic Design
 
