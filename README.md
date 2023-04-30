@@ -9,7 +9,7 @@ I'm an undergraduate student at the University of Ioannina, studying Computer Sc
 - Python
 - Java
 - C#
-- C++
+- JavaScript
 
 ### Technologies
 - Data Structures
