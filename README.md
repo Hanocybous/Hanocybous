@@ -33,6 +33,8 @@ I'm an undergraduate student at the University of Ioannina, studying Computer Sc
 - [**Java Basic**](https://www.hackerrank.com/certificates/402af755da2d)
 - [**Python Basic**](https://www.hackerrank.com/certificates/17c8f0a8f556)
 - [**Linear Algebra for Machine Learning**](https://www.coursera.org/account/accomplishments/certificate/NDXYMZFMPLTY)
+
+[![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=anuraghazra)](https://github.com/anuraghazra/github-readme-stats)
 <!---
 Hanocybous/Hanocybous is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
