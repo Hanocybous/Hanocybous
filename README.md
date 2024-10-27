@@ -35,6 +35,7 @@ I'm an undergraduate student at the University of Ioannina, studying Computer Sc
 - [**Linear Algebra for Machine Learning**](https://www.coursera.org/account/accomplishments/certificate/NDXYMZFMPLTY)
 
 [![Hanocybous's GitHub stats](https://github-readme-stats.vercel.app/api?username=Hanocybous)](https://github.com/Hanocybous/github-readme-stats)
+[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Hanocybous)](https://github.com/Hanocybous/github-readme-stats)
 <!---
 Hanocybous/Hanocybous is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 You can click the Preview link to take a look at your changes.
