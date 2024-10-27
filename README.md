@@ -1,42 +1,31 @@
-# Welcome to my Github profile!
-I'm an undergraduate student at the University of Ioannina, studying Computer Science and Engineering. I'm interested in software development, machine learning, and computer architecture. I'm currently working on a few projects, which you can find in my repositories.
+<h1 align="center">Hi 👋, I'm Charilaos</h1>
+<h3 align="center">Aspiring Systems Engineer</h3>
 
-## Contact
-- [**LinkedIn**](https://www.linkedin.com/in/charilaoschatz/)
-- [**Email**](mailto:harrychatz5@gmail.com)
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=hanocybous&label=Profile%20views&color=0e75b6&style=flat" alt="hanocybous" /> </p>
 
-### Programming Languages
-- Python
-- Java
-- C#
-- JavaScript
+- 🌱 I’m currently learning **Frameworks**
 
-### Technologies
-- Data Structures
-- Computer Architecture
-- Logic Design
+- 📝 I regularly write articles on [LinkedIn](LinkedIn)
 
-### Tools
-- Git
-- GitHub
+- 💬 Ask me about **java, kotlin, c, linux**
 
-### Operating Systems
-- Windows
-- Linux
+- 📫 How to reach me **charilaoschatz@protonmail.com**
 
-### IDEs
-- Visual Studio
-- IntelliJ IDEA
-- Atom
+- ⚡ Fun fact **I think I am a good cook**
 
-## Certificates
-- [**Java Basic**](https://www.hackerrank.com/certificates/402af755da2d)
-- [**Python Basic**](https://www.hackerrank.com/certificates/17c8f0a8f556)
-- [**Linear Algebra for Machine Learning**](https://www.coursera.org/account/accomplishments/certificate/NDXYMZFMPLTY)
+<h3 align="left">Connect with me:</h3>
+<p align="left">
+<a href="https://twitter.com/charilaoschatz" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="charilaoschatz" height="30" width="40" /></a>
+<a href="https://linkedin.com/in/charilaoschatz" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="charilaoschatz" height="30" width="40" /></a>
+<a href="https://stackoverflow.com/users/19210193" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="19210193" height="30" width="40" /></a>
+<a href="https://fb.com/charilaoschatz" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="charilaoschatz" height="30" width="40" /></a>
+<a href="https://instagram.com/charilaoschatz" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="charilaoschatz" height="30" width="40" /></a>
+<a href="https://www.hackerrank.com/charilaoschatz" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/hackerrank.svg" alt="charilaoschatz" height="30" width="40" /></a>
+</p>
 
-[![Hanocybous's GitHub stats](https://github-readme-stats.vercel.app/api?username=Hanocybous)](https://github.com/Hanocybous/github-readme-stats)
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Hanocybous)](https://github.com/Hanocybous/github-readme-stats)
-<!---
-Hanocybous/Hanocybous is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+<h3 align="left">Languages and Tools:</h3>
+<p align="left"> <a href="https://azure.microsoft.com/en-in/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/microsoft_azure/microsoft_azure-icon.svg" alt="azure" width="40" height="40"/> </a> <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/> </a> <a href="https://www.docker.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original-wordmark.svg" alt="docker" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://grafana.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/grafana/grafana-icon.svg" alt="grafana" width="40" height="40"/> </a> <a href="https://graphql.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/graphql/graphql-icon.svg" alt="graphql" width="40" height="40"/> </a> <a href="https://www.haskell.org/" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Haskell-Logo.svg" alt="haskell" width="40" height="40"/> </a> <a href="https://www.java.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" alt="java" width="40" height="40"/> </a> <a href="https://kotlinlang.org" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/kotlinlang/kotlinlang-icon.svg" alt="kotlin" width="40" height="40"/> </a> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://mariadb.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/mariadb/mariadb-icon.svg" alt="mariadb" width="40" height="40"/> </a> <a href="https://www.mathworks.com/" target="_blank" rel="noreferrer"> <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Matlab_Logo.png" alt="matlab" width="40" height="40"/> </a> <a href="https://www.mysql.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mysql/mysql-original-wordmark.svg" alt="mysql" width="40" height="40"/> </a> <a href="https://www.photoshop.com/en" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/photoshop/photoshop-line.svg" alt="photoshop" width="40" height="40"/> </a> <a href="https://www.postgresql.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg" alt="postgresql" width="40" height="40"/> </a> <a href="https://postman.com" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" alt="postman" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://spring.io/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" alt="spring" width="40" height="40"/> </a> <a href="https://www.sqlite.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-icon.svg" alt="sqlite" width="40" height="40"/> </a> <a href="https://unity.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/unity3d/unity3d-icon.svg" alt="unity" width="40" height="40"/> </a> </p>
+
+<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=hanocybous&show_icons=true&locale=en&layout=compact" alt="hanocybous" /></p>
+
+<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=hanocybous&show_icons=true&locale=en" alt="hanocybous" /></p>
