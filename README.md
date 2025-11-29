@@ -1,5 +1,5 @@
 <h1 align="center">Hi 👋, I'm Charilaos</h1>
-<h3 align="center">An Undergraduate CSE Student | Former IT Support Technician</h3>
+<h3 align="center">Final Year Undergraduate CSE Student | Former IT Systems Administrator Intern</h3>
 
 ---
 
