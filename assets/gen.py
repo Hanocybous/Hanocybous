@@ -28,7 +28,7 @@ GROUPS = [
     ]),
     ("Education", "edu", [
         ("MEng Comp. Eng.", "Univ. of Ioannina"),
-        ("Certifications", "Microsoft SysAdmin"),
+        ("Certifications", "Ubuntu, Fortinet"),
         ("Languages", "GR, EN, FR"),
     ]),
 ]

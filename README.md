@@ -1,7 +1,7 @@
 <a href="https://hanocybous.github.io">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="assets/network-dark.svg" />
-    <img src="assets/network-light.svg" width="100%" alt="Network map of Charilaos Chatzidimitriou, systems and network engineer in Thessaloniki. Experience: sysadmin intern at Masoutis S.A. in 2025, Zabbix rollout across 22,000+ sensors, IT support at the University of Ioannina CSE department 2022 to 2025. Projects: Pylos, K-Clique App, Parallel Systems, G++ Compiler. Skills: monitoring, networking, Linux systems, C, C++, Python, Java. Education: MEng Computer Engineering at the University of Ioannina, Microsoft SysAdmin certification, Greek, English and French." />
+    <img src="assets/network-light.svg" width="100%" alt="Network map of Charilaos Chatzidimitriou, systems and network engineer in Thessaloniki. Experience: sysadmin intern at Masoutis S.A. in 2025, Zabbix rollout across 22,000+ sensors, IT support at the University of Ioannina CSE department 2022 to 2025. Projects: Pylos, K-Clique App, Parallel Systems, G++ Compiler. Skills: monitoring, networking, Linux systems, C, C++, Python, Java. Education: MEng Computer Engineering at the University of Ioannina, Canonical Ubuntu and Fortinet cybersecurity certifications, Greek, English and French." />
   </picture>
 </a>
 
