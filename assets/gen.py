@@ -1,160 +1,137 @@
-"""Builds the animated SVG banners for the profile README. Run: python3 assets/gen.py assets"""
+"""Builds the animated network map for the profile README. Run: python3 assets/gen.py assets"""
 import base64, os, sys
-from fontTools.ttLib import TTFont
 
-OUT = sys.argv[1]
-FONT = os.path.join(os.path.dirname(__file__), "archivo-800.woff")
-f = TTFont(FONT)
-UPM, CMAP, HMTX = f["head"].unitsPerEm, f.getBestCmap(), f["hmtx"]
-B64 = base64.b64encode(open(FONT, "rb").read()).decode()
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = sys.argv[1] if len(sys.argv) > 1 else HERE
+font = lambda w: base64.b64encode(open(os.path.join(HERE, f"jbmono-{w}.woff"), "rb").read()).decode()
+REG, BOLD = font(400), font(700)
 
-BLACK, BONE, BLUE, INK = "#050506", "#ebe6dc", "#1736ff", "#111114"
-W = 1200
+# Edit the map here. Each group is a distribution switch with its leaves.
+CORE = ("Charilaos Chatzidimitriou", "Systems & network engineer, Thessaloniki")
+GROUPS = [
+    ("Experience", "exp", [
+        ("Masoutis S.A.", "sysadmin intern, 2025"),
+        ("Zabbix rollout", "22,000+ sensors"),
+        ("UoI CSE Dept.", "IT support, 2022-25"),
+    ]),
+    ("Projects", "proj", [
+        ("Pylos", "SSH autoblocker"),
+        ("K-Clique App", "SAT solver, 16,000x"),
+        ("Parallel Systems", "OpenMP, MPI, CUDA"),
+        ("G++ Compiler", "lexer and parser"),
+    ]),
+    ("Skills", "skill", [
+        ("Monitoring", "Zabbix, Nagios, SNMP"),
+        ("Networking", "VLANs, Cisco, Aruba"),
+        ("Systems", "Linux, iptables"),
+        ("Code", "C, C++, Python, Java"),
+    ]),
+    ("Education", "edu", [
+        ("MEng Comp. Eng.", "Univ. of Ioannina"),
+        ("Certifications", "Microsoft SysAdmin"),
+        ("Languages", "GR, EN, FR"),
+    ]),
+]
 
+THEMES = {
+    "dark": dict(text="#e6edf3", muted="#8b949e", link="#30363d", fill="#161b22", core="#0d1117",
+                 exp="#d29922", proj="#3fb950", skill="#58a6ff", edu="#db61a2", led="#3fb950"),
+    "light": dict(text="#1f2328", muted="#59636e", link="#d1d9e0", fill="#f6f8fa", core="#ffffff",
+                  exp="#9a6700", proj="#1a7f37", skill="#0969da", edu="#bf3989", led="#1a7f37"),
+}
 
-def adv(ch, size, track):
-    return HMTX[CMAP.get(ord(ch), CMAP[32])][0] / UPM * size + track * size
-
-
-def width(s, size, track=0):
-    return sum(adv(c, size, track) for c in s)
+W = 1000
+COL = W / len(GROUPS)
+CORE_Y, CORE_H, CORE_W = 30, 84, 520
+DIST_Y, DIST_H, DIST_W = 196, 46, 200
+LEAF_Y0, LEAF_H, LEAF_W, LEAF_GAP = 300, 58, 208, 16
+H = LEAF_Y0 + 4 * (LEAF_H + LEAF_GAP) + 10
 
 
 def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def wrap(text, size, maxw):
-    lines, cur = [], ""
-    for w in text.split():
-        t = (cur + " " + w).strip()
-        if width(t, size) > maxw and cur:
-            lines.append(cur); cur = w
-        else:
-            cur = t
-    return lines + [cur]
+def fits(s, size, box):
+    assert len(s) * size * 0.6 < box - 24, f"too long for its box: {s!r}"
 
 
-def svg(h, bg, body, css):
-    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{h}" viewBox="0 0 {W} {h}">
-<style>
-@font-face {{ font-family: A; src: url(data:font/woff;base64,{B64}) format("woff"); }}
-text {{ font-family: A, Arial, sans-serif; font-weight: 800; }}
-{css}
-@media (prefers-reduced-motion: reduce) {{ * {{ animation: none !important; }} }}
-</style>
-<rect width="{W}" height="{h}" fill="{bg}"/>
-{body}
+def build(t):
+    links, packets, nodes = [], [], []
+    cx, core_bottom = W / 2, CORE_Y + CORE_H
+    n = 0
+    for g, (gname, key, leaves) in enumerate(GROUPS):
+        color = t[key]
+        dx = COL * g + COL / 2
+        bus_x = dx - DIST_W / 2 + 4
+        # core to distribution
+        up = f"M{cx} {core_bottom} C {cx} {core_bottom + 50}, {dx} {DIST_Y - 50}, {dx} {DIST_Y}"
+        links.append(f'<path class="link" pathLength="1" style="animation-delay:{0.3 + g * 0.1:.2f}s" d="{up}"/>')
+        links.append(f'<text class="port" x="{dx + 8}" y="{DIST_Y - 10}" style="animation-delay:{0.9 + g * 0.1:.2f}s">ge-0/0/{g}</text>')
+        nodes.append(f'<g class="node" style="animation-delay:{0.6 + g * 0.1:.2f}s">'
+                     f'<rect x="{dx - DIST_W / 2}" y="{DIST_Y}" width="{DIST_W}" height="{DIST_H}" rx="8" fill="{color}"/>'
+                     f'<text class="dist" x="{dx}" y="{DIST_Y + 30}" text-anchor="middle">{esc(gname)}</text></g>')
+        fits(gname, 18, DIST_W)
+        last_y = LEAF_Y0 + (len(leaves) - 1) * (LEAF_H + LEAF_GAP) + LEAF_H / 2
+        links.append(f'<path class="link" pathLength="1" style="animation-delay:{0.9 + g * 0.1:.2f}s" '
+                     f'd="M{bus_x} {DIST_Y + DIST_H} V {last_y}"/>')
+        for i, (title, sub) in enumerate(leaves):
+            y = LEAF_Y0 + i * (LEAF_H + LEAF_GAP)
+            mid, lx = y + LEAF_H / 2, bus_x + 14
+            delay = 1.2 + g * 0.08 + i * 0.12
+            links.append(f'<path class="link" pathLength="1" style="animation-delay:{delay:.2f}s" d="M{bus_x} {mid} H {lx}"/>')
+            nodes.append(f'<g class="node" style="animation-delay:{delay + 0.1:.2f}s">'
+                         f'<rect x="{lx}" y="{y}" width="{LEAF_W - 30}" height="{LEAF_H}" rx="6" fill="{t["fill"]}" stroke="{color}" stroke-width="1.5"/>'
+                         f'<text class="leaf" x="{lx + 12}" y="{y + 25}">{esc(title)}</text>'
+                         f'<text class="sub" x="{lx + 12}" y="{y + 45}">{esc(sub)}</text>'
+                         f'<circle class="led" cx="{lx + LEAF_W - 44}" cy="{y + 14}" r="3.5" fill="{t["led"]}" '
+                         f'style="animation-duration:{0.9 + (n * 0.37) % 1.4:.2f}s"/></g>')
+            fits(title, 15, LEAF_W - 30)
+            fits(sub, 12, LEAF_W - 30)
+            # a packet runs core -> switch -> leaf, every other one runs back up
+            route = f"{up} L {dx} {DIST_Y + DIST_H} L {bus_x} {DIST_Y + DIST_H} L {bus_x} {mid} L {lx} {mid}"
+            back = ' keyPoints="1;0" keyTimes="0;1" calcMode="linear"' if n % 2 else ""
+            start = 2.2 + n * 0.35  # hidden until its first trip, or it sits at the origin
+            packets.append(f'<circle r="4" fill="{color}" opacity="0"><set attributeName="opacity" to="1" begin="{start:.2f}s"/>'
+                           f'<animateMotion dur="{2.6 + (n % 3) * 0.5:.1f}s" begin="{start:.2f}s" repeatCount="indefinite" path="{route}"{back}/></circle>')
+            n += 1
+
+    core = (f'<g class="node" style="animation-delay:0s">'
+            f'<rect x="{cx - CORE_W / 2}" y="{CORE_Y}" width="{CORE_W}" height="{CORE_H}" rx="12" '
+            f'fill="{t["core"]}" stroke="{t["text"]}" stroke-width="2"/>'
+            f'<text class="core" x="{cx}" y="{CORE_Y + 38}" text-anchor="middle">{esc(CORE[0])}</text>'
+            f'<text class="coresub" x="{cx}" y="{CORE_Y + 64}" text-anchor="middle">{esc(CORE[1])}</text>'
+            f'<circle class="led" cx="{cx + CORE_W / 2 - 18}" cy="{CORE_Y + 18}" r="4.5" fill="{t["led"]}" style="animation-duration:1.1s"/></g>')
+    fits(CORE[0], 26, CORE_W)
+    fits(CORE[1], 15, CORE_W)
+
+    css = f'''@font-face {{ font-family: M; src: url(data:font/woff;base64,{REG}) format("woff"); font-weight: 400; }}
+@font-face {{ font-family: M; src: url(data:font/woff;base64,{BOLD}) format("woff"); font-weight: 700; }}
+text {{ font-family: M, ui-monospace, monospace; fill: {t["text"]}; }}
+.core {{ font-size: 26px; font-weight: 700; }}
+.coresub {{ font-size: 15px; fill: {t["muted"]}; }}
+.dist {{ font-size: 18px; font-weight: 700; fill: {t["core"]}; }}
+.leaf {{ font-size: 15px; font-weight: 700; }}
+.sub {{ font-size: 12px; fill: {t["muted"]}; }}
+.port {{ font-size: 11px; fill: {t["muted"]}; animation: fade .6s ease-out both; }}
+.link {{ fill: none; stroke: {t["link"]}; stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .7s cubic-bezier(.65,0,.35,1) forwards; }}
+.node {{ animation: pop .6s cubic-bezier(.16,1,.3,1) both; }}
+.led {{ animation: blink 1s steps(1) infinite; }}
+@keyframes draw {{ to {{ stroke-dashoffset: 0; }} }}
+@keyframes pop {{ from {{ opacity: 0; transform: translateY(10px); }} }}
+@keyframes fade {{ from {{ opacity: 0; }} }}
+@keyframes blink {{ 50% {{ opacity: .25; }} }}
+@media (prefers-reduced-motion: reduce) {{ * {{ animation: none !important; }} .link {{ stroke-dashoffset: 0; }} .packets {{ display: none; }} }}'''
+
+    return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H:.0f}" viewBox="0 0 {W} {H:.0f}">
+<style>{css}</style>
+<g>{"".join(links)}</g>
+<g class="packets">{"".join(packets)}</g>
+<g>{core}{"".join(nodes)}</g>
 </svg>
 '''
 
 
-def rising_chars(line, x, y, size, track, start, step, cls="ch"):
-    """One <text> per letter so each can rise out of its own mask line."""
-    out = []
-    for i, ch in enumerate(line):
-        if ch != " ":
-            out.append(f'<text class="{cls}" x="{x:.1f}" y="{y}" font-size="{size}" '
-                       f'style="animation-delay:{start + i * step:.3f}s">{esc(ch)}</text>')
-        x += adv(ch, size, track)
-    return "\n".join(out)
-
-
-def hero():
-    h, size, track, pad = 560, 128, -0.045, 48
-    wires = [
-        "M-20 150 C 260 80, 460 240, 700 170 S 1060 80, 1220 160",
-        "M-20 300 C 220 370, 520 230, 760 320 S 1060 400, 1220 290",
-        "M-20 420 C 300 350, 540 500, 820 430 S 1100 360, 1220 460",
-    ]
-    lines = "".join(f'<path class="wire" d="{d}"/>' for d in wires)
-    lines += "".join(f'<path class="packet p{i}" d="{d}"/>' for i, d in enumerate(wires))
-    y1, y2 = 300, 410
-    body = f'''{lines}
-<clipPath id="m1"><rect x="0" y="{y1 - size}" width="{W}" height="{size * 1.15:.0f}"/></clipPath>
-<clipPath id="m2"><rect x="0" y="{y2 - size}" width="{W}" height="{size * 1.18:.0f}"/></clipPath>
-<g clip-path="url(#m1)" fill="{BONE}">{rising_chars("Charilaos", pad, y1, size, track, 0.2, 0.04)}</g>
-<g clip-path="url(#m2)" fill="{BONE}">{rising_chars("Chatzidimitriou", pad, y2, size, track, 0.35, 0.035)}</g>
-<text class="fade" x="{pad}" y="490" font-size="26" fill="{BONE}">Systems &amp; network engineer in the making, based in Thessaloniki.</text>
-<text class="fade f2" x="{pad}" y="528" font-size="21" fill="{BONE}" fill-opacity=".62">Open to Systems Engineer and SysAdmin roles</text>'''
-    css = f'''.wire {{ fill: none; stroke: {BONE}; stroke-opacity: .09; stroke-width: 1.2; }}
-.packet {{ fill: none; stroke: {BLUE}; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 80 1500; animation: packet 5s linear infinite; }}
-.p1 {{ stroke: {BONE}; animation-duration: 7s; animation-delay: -2s; }}
-.p2 {{ animation-duration: 6s; animation-delay: -4s; }}
-@keyframes packet {{ from {{ stroke-dashoffset: 1580; }} to {{ stroke-dashoffset: 0; }} }}
-.ch {{ animation: rise 1.3s cubic-bezier(.16,1,.3,1) both; }}
-@keyframes rise {{ from {{ transform: translateY(150px); }} }}
-.fade {{ animation: fade 1.2s ease-out 1.1s both; }}
-.f2 {{ animation-delay: 1.25s; }}
-@keyframes fade {{ from {{ opacity: 0; transform: translateY(16px); }} }}'''
-    assert width("Chatzidimitriou", size, track) < W - 2 * pad
-    return svg(h, BLACK, body, css)
-
-
-def statement():
-    size, pad, lh = 50, 56, 58
-    text = ("I like working close to the fundamentals: how packets move across a network, "
-            "how data moves through memory, and how algorithms shape performance.")
-    lines = wrap(text, size, W - 2 * pad)
-    h = pad * 2 + lh * len(lines) - 6
-    out, i = [], 0
-    for n, line in enumerate(lines):
-        x, y = pad, pad + size * 0.8 + n * lh
-        for word in line.split():
-            out.append(f'<text class="w" x="{x:.1f}" y="{y:.0f}" font-size="{size}" '
-                       f'style="animation-delay:{i * 0.22:.2f}s">{esc(word)}</text>')
-            x += width(word + " ", size, -0.03)
-            i += 1
-    css = f'''text {{ letter-spacing: -1.5px; fill: {INK}; }}
-.w {{ animation: light 9s linear infinite both; }}
-@keyframes light {{ 0% {{ opacity: .14; }} 4% {{ opacity: 1; }} 70% {{ opacity: 1; }} 76% {{ opacity: .14; }} 100% {{ opacity: .14; }} }}'''
-    return svg(h, BONE, "\n".join(out), css)
-
-
-def skills():
-    rows = [
-        ("Monitoring", "Seeing problems before users do. Zabbix, Nagios, SNMP traps, triggers and alerts."),
-        ("Networking", "Networks you can trace, end to end. VLANs, Cisco RV, HPE Aruba CX, Wireshark, TCP/IP."),
-        ("Systems", "Installing, maintaining and supporting real machines. Linux, systemd, iptables, shell."),
-        ("Programming", "Algorithms you can explain, code you can trust. C, C++, Python, Java, MPI, CUDA."),
-    ]
-    pad, size, row_h, top = 56, 104, 128, 150
-    desc_x, desc_size = 780, 20
-    out = [f'<text x="{pad}" y="100" font-size="44" fill="{BONE}" style="letter-spacing:-1.5px">What I work with</text>']
-    for k, (name, desc) in enumerate(rows):
-        y0 = top + k * row_h
-        out.append(f'<rect x="{pad}" y="{y0}" width="{W - 2 * pad}" height="2" fill="{BONE}" fill-opacity=".25"/>')
-        out.append(f'<text class="name" x="{pad}" y="{y0 + 106}" font-size="{size}" fill="{BONE}" '
-                   f'style="animation-delay:{0.2 + k * 0.15:.2f}s;transform-origin:{pad}px {y0 + 106}px">{esc(name)}</text>')
-        for j, line in enumerate(wrap(desc, desc_size, W - pad - desc_x)):
-            out.append(f'<text class="desc" x="{desc_x}" y="{y0 + 50 + j * 26}" font-size="{desc_size}" fill="{BONE}" '
-                       f'style="animation-delay:{0.6 + k * 0.15:.2f}s">{esc(line)}</text>')
-        assert width(name, size, -0.05) < desc_x - pad - 20, name
-    css = '''.name { letter-spacing: -5px; animation: stretch 1.6s cubic-bezier(.16,1,.3,1) both; }
-@keyframes stretch { from { transform: scaleX(.6) translateX(40px); opacity: 0; } 30% { opacity: 1; } }
-.desc { font-weight: 800; animation: fade 1s ease-out both; }
-@keyframes fade { from { opacity: 0; transform: translateY(12px); } }'''
-    return svg(top + 4 * row_h + 40, BLUE, "\n".join(out), css)
-
-
-def contact():
-    pad, size, h = 56, 104, 400
-    l1, l2 = "Let’s build something", "reliable."
-    assert width(l1, size, -0.05) < W - 2 * pad
-    body = f'''<clipPath id="c1"><rect x="0" y="{150 - size}" width="{W}" height="{size * 1.2:.0f}"/></clipPath>
-<clipPath id="c2"><rect x="0" y="{248 - size}" width="{W}" height="{size * 1.2:.0f}"/></clipPath>
-<g clip-path="url(#c1)"><text class="line" x="{pad}" y="150" font-size="{size}" fill="{BONE}">{l1}</text></g>
-<g clip-path="url(#c2)"><text class="line l2" x="{pad}" y="248" font-size="{size}" fill="{BONE}">{l2}</text></g>
-<text class="fade" x="{pad}" y="330" font-size="30" fill="{BONE}">charilaoschatzidimitriou@gmail.com</text>
-<text class="fade" x="{pad}" y="368" font-size="21" fill="{BONE}" fill-opacity=".75">Hiring for a systems or network role, or just want to say hi? My inbox is always open.</text>'''
-    css = '''.line { letter-spacing: -5px; animation: rise 1.3s cubic-bezier(.16,1,.3,1) .2s both; }
-.l2 { animation-delay: .32s; }
-@keyframes rise { from { transform: translateY(130px); } }
-.fade { animation: fade 1s ease-out .9s both; }
-@keyframes fade { from { opacity: 0; transform: translateY(12px); } }'''
-    return svg(h, BLUE, body, css)
-
-
-for name, fn in [("hero", hero), ("statement", statement), ("skills", skills), ("contact", contact)]:
-    open(f"{OUT}/{name}.svg", "w").write(fn())
+for name, t in THEMES.items():
+    open(os.path.join(OUT, f"network-{name}.svg"), "w").write(build(t))
     print(name, "ok")
